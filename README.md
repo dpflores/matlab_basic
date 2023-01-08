@@ -1,7 +1,7 @@
 # matlab_basic
 Curso de matlab KON
 
-```matlab
+```Matlab
 %% Ejercicio 1
 
 x1 = 5*4 + 7^2 % a)
