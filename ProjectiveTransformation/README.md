@@ -1,7 +1,7 @@
 # Transformación proyectiva inversa (Parte 1)
 
 ## Introduction
----
+
 La transformación proyectiva expresa la relación que existe entre dos sistemas de coordenadas distintos; es decir, la transformación que es necesario aplicar a uno de los sistemas para obtener el otro.
 
 Una aplicación de este concepto se encuentra en la tecnología desarrollada en los vehículos autónomos, y *Computer Vision* en general. Por ejemplo, cuando la cámara de un vehículo captura su entorno, entonces los objetos tridimensionales (coordenadas del entorno) son mapeados a una imagen bidimensional (coordenadas de la imagen de la cámara), tal y como se muestra en la Figura 1. Como resultado de ello, se pierde la información de la profundidad. Es decir, no se puede conocer a qué distancia se encuentra cada objeto.
@@ -18,7 +18,7 @@ Figura 1: Modelo de proyección de una cámara [1]. Un punto tridimensional en e
 Ahora, ¿Es posible realizar el proceso inverso? Esto es, reconstruir el entorno del vehículo utilizando la imagen bidimensional. La respuesta corta es sí, pero también es necesario tener disponible la información de la profundidad. Generalmente, tanto la imagen 2D como la profundidad se sensa mediante una cámara de profundidad (RGB-D) como la RealSense [[link](https://www.amazon.ca/Intel-RealSense-Depth-Camera-D435i/dp/B07MWR2YJB/ref=asc_df_B07MWR2YJB/?tag=googleshopc0c-20&linkCode=df0&hvadid=335055404543&hvpos=&hvnetw=g&hvrand=15623794657013069629&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9001382&hvtargid=pla-665733477051&psc=1)]. Para lograr realizar dicho proceso, es necesario conocer los paramétros intrínsecos de la cámara, una imagen RGB, la información de profundidad y encontrar la transformación entre ambos sistemas de coordenadas. A continuación, se muestra el procedimiento utilizando MATLAB.
 
 ## Parámetros de una cámara
----
+
 En *Computer vision*, uno de los pasos más importantes es el de la calibración de la cámara con la cual se capturan las imágenes. Este proceso consiste en determinar los parámetros intrínsecos, extrínsicos ($[R|t]$) y de distorsión de la cámara. 
 
 Por un lado, la matriz de parámetros intrínsicos ($K$) contiene información de la distancia focal ($f_x$, $f_y$), el centro óptico de la cámara  ($u_0$, $v_0$), y el factor de desviación ($\gamma$, considerado, por simplicidad, como 0). Por otro lado, la matriz de parámetros extrínsecos ($[R|t]$) describen la transformación relativa del sistema de coordenadas del entorno al de la cámara.
@@ -92,13 +92,13 @@ $$
 *Nota: La presenta aplicación se centra en la implementación de las ecuaciones dadas. Para tener más detalles de cómo se obtiene la ecuación (1), revise el siguiente [blog](https://www.imatest.com/support/docs/pre-5-2/geometric-calibration-deprecated/projective-camera/#:~:text=A%20projective%20camera%20model%20describes,most%20cameras%20in%20this%20method*).*
 
 ## Código
----
+
 Las imágenes a utilizar fueron obtenidas del software CARLA, un simulador de vehículos utilizado ampliamente para el desarrollo de algoritmos en vehículos autónomos, las cuales fueron recuperadas del siguiente [blog](https://daryl-tan.medium.com/). 
 
 A continuación, se muestra el paso a paso del código elaborado
 
 ### Lectura de una imagen RGB
----
+
 Se utiliza el comando `imshow()` para visualizar la imagen RGB.
 ```matlab
 %% Visualizar imagen rgb
@@ -109,7 +109,7 @@ imshow(imageRGB);
 title('Imagen RGB');
 ```
 ## Lectura de una imagen de profundiad
----
+
 Generalmente la profundidad se suele representar como una imagen bidimensional, en el que la intensidad define qué tan lejos se encuentra el punto en el entorno. En este caso se utiliza el comando `exrread()` para leer el archivo que contiene la información de profundidad y luego el comando `imshow()` para visualizar la imagen. 
 
 ```matlab
@@ -126,7 +126,7 @@ title('Información de profundidad');
 *Nota: El comando `exrread()` se utilizó con MATLAB 2022b y se encuentra en el toolbox de Image Processing. En caso de obtener un error en dicha línea de código, se recomienda instalar el toolbox mencionado. En caso el problema persista, lo ideal sería actualizar a la versión más reciente de MATALB (2022b). Sin embargo, es posible utilizar MATLAB Online por facilidad.*
 
 ### Cálculo de coordenadas de la imagen 2D
----
+
 Se elaboró una función en MATLAB para obtener las coordenadas de la imagen.  Note que la matriz resultante es de tamaño [3, w*h]. Esto debido a que MATLAB es un software optimizado para trajar eficientemente con matrices. No es necesario crear *for-loops* para iterar sobre las coordeanadas.
 
 ```matlab
@@ -149,7 +149,7 @@ end
 ```
 
 ### Implementación de la ecuación (1)
----
+
 A cotinuación, semuestra el código para implementar la ecuación que nos permite reconstruir el entorno 3D.
 
 ```matlab
@@ -208,7 +208,7 @@ Figura 2: Vista superior.
 </div>
 
 ## Referencias
----
+
 [1] https://www.researchgate.net/publication/35152505_Fusion_of_Imaging_and_Inertial_Sensors_for_Navigation 
 
 [2] https://www.cenam.mx/simposio2004/memorias/TA-034.pdf
