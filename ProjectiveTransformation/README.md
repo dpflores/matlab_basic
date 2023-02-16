@@ -6,14 +6,12 @@ La transformación proyectiva expresa la relación que existe entre dos sistemas
 
 Una aplicación de este concepto se encuentra en la tecnología desarrollada en los vehículos autónomos, y *Computer Vision* en general. Por ejemplo, cuando la cámara de un vehículo captura su entorno, entonces los objetos tridimensionales (coordenadas del entorno) son mapeados a una imagen bidimensional (coordenadas de la imagen de la cámara), tal y como se muestra en la Figura 1. Como resultado de ello, se pierde la información de la profundidad. Es decir, no se puede conocer a qué distancia se encuentra cada objeto.
 
-
-<div style="text-align:center">
-<img src="./images/cameraModel.png" 
-     alt="Fig1" 
-     width="70%" 
-     style="display: block; margin: 0 auto" />
+<p align="center">
+  <img width="70%" src="./images/cameraModel.png">
+     
 Figura 1: Modelo de proyección de una cámara [1]. Un punto tridimensional en el entorno es ubicado virtualmente en el plano de la imagen generado por la cámara.
-</div>
+</p>
+
   
 Ahora, ¿Es posible realizar el proceso inverso? Esto es, reconstruir el entorno del vehículo utilizando la imagen bidimensional. La respuesta corta es sí, pero también es necesario tener disponible la información de la profundidad. Generalmente, tanto la imagen 2D como la profundidad se sensa mediante una cámara de profundidad (RGB-D) como la RealSense [[link](https://www.amazon.ca/Intel-RealSense-Depth-Camera-D435i/dp/B07MWR2YJB/ref=asc_df_B07MWR2YJB/?tag=googleshopc0c-20&linkCode=df0&hvadid=335055404543&hvpos=&hvnetw=g&hvrand=15623794657013069629&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9001382&hvtargid=pla-665733477051&psc=1)]. Para lograr realizar dicho proceso, es necesario conocer los paramétros intrínsecos de la cámara, una imagen RGB, la información de profundidad y encontrar la transformación entre ambos sistemas de coordenadas. A continuación, se muestra el procedimiento utilizando MATLAB.
 
@@ -32,19 +30,28 @@ Este modelamiento describe las matemáticas de la transformación de un punto de
 $$p = K [R|t]P$$
 
 $$
-\begin{equation}
-s\begin{bmatrix}u\\
-                  v\\
-                  Z\end{bmatrix}= \begin{bmatrix}f_x & \gamma & u_0\\
-                                  0 & f_y & v_0\\
-                                  0 & 0 & 1 \end{bmatrix}
-                  \begin{bmatrix}r_{11} & r_{12} & r_{13} & t_{1}\\
-                    r_{21} & r_{22} & r_{23} & t_{2}\\
-                    r_{31} & r_{32} & r_{33} & t_{3}\\\end{bmatrix}
-                    \begin{bmatrix}X\\
-                                   Y\\
-                                  Z \\ 1\end{bmatrix}
-\end{equation}$$
+s
+\begin{bmatrix}
+u\\
+v\\
+Z
+\end{bmatrix} = \begin{bmatrix}
+f_x & \gamma & u_0\\
+0 & f_y & v_0\\
+0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+r_{11} & r_{12} & r_{13} & t_{1}\\
+r_{21} & r_{22} & r_{23} & t_{2}\\
+r_{31} & r_{32} & r_{33} & t_{3}
+\end{bmatrix}
+\begin{bmatrix}
+X\\
+Y\\
+Z\\
+1
+\end{bmatrix}
+$$
 
 Donde:
 - *p ([u, v, Z])* es la posición de un punto en el sistema de coordenadas de la cámara. Cabe mencionar que estas coordenadas no son homogéneas, por lo que también se expresan como $[x, y, 1]^TZ$.
@@ -52,39 +59,70 @@ Donde:
 - $s$ es el factor de escala, el cual controla como se escalan los píxeles en las direcciones $x$ e $y$ al cambiar la distancia focal.
 
 Recordemos que nuestro objetivo es poder reconstruir el entorno, por lo que es necesario encontrar los puntos $[X, Y, Z]$. Además, consideremos un factor de escalamiento igual a 1. asimismo, definamos que visualizaremos el entorno desde un sistema de coordenadas ubicado en la cámara. Esto significa que la matriz de rotación ($R$) es igual a la matriz identidad y que el vector de traslación es un vector de ceros. Por ende, la ecuación queda como sigue:
+
 $$
 \begin{bmatrix}
-x\\ y\\1 
+x\\
+y\\
+1 
 \end{bmatrix}Z=K\begin{bmatrix}
-1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 1 & 0\\ 
-\end{bmatrix}\begin{bmatrix}
-X\\ Y\\Z \\1 
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\ 
+\end{bmatrix}
+\begin{bmatrix}
+X\\
+Y\\
+Z\\
+1 
 \end{bmatrix}
 $$
+
 Note que $Z$ es un escalar, por lo que no es una multiplicación matricial. Por lo tanto, podemos multiplicar por la inversa de la matriz de calibración en cada lado:
+
 $$
 K^{-1}\begin{bmatrix}
-x\\ y\\1 
+x\\
+y\\
+1 
 \end{bmatrix}Z = \begin{bmatrix}
-1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 1 & 0\\ 
-\end{bmatrix}\begin{bmatrix}
-X\\ Y\\Z \\1 
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\ 
+\end{bmatrix}
+\begin{bmatrix}
+X\\
+Y\\
+Z\\
+1 
 \end{bmatrix}\\
 $$  
+
 Realizamos la multiplicación matricial en el lado derecho de la ecuación y obtenemos:
+
 $$
 K^{-1}\begin{bmatrix}
-x\\ y\\ 1 
+x\\
+y\\
+1 
 \end{bmatrix}Z = \begin{bmatrix}
-X\\ Y\\ Z
+X\\
+Y\\
+Z
 \end{bmatrix}
 $$
+
 Finalmente, despejamos y se obtiene:
+
 $$
 \begin{bmatrix}
-X\\ Y\\ Z
+X\\
+Y\\
+Z
 \end{bmatrix} = K^{-1}\begin{bmatrix}
-x\\ y\\1 
+x\\
+y\\
+1 
 \end{bmatrix}Z
 $$
 
@@ -191,20 +229,17 @@ be = projectTopView(camCoordsFiltered);
 ```
 
 ## Resultado final
-<div style="text-align:center">
-<img src="./images/reconstruccion3D.png" 
-     alt="Fig1" 
-     width="70%" 
-     style="display: block; margin: 0 auto" />
+<p align="center">
+  <img width="70%" src="./images/reconstruccion3D.png">
+     
 Figura 2: Reconstrucción 3D del entorno.
-</div>
-<div style="text-align:center">
-<img src="./images/vistaSup.png" 
-     alt="Fig1" 
-     width="70%" 
-     style="display: block; margin: 0 auto" />
-Figura 2: Vista superior.
-</div>
+</p>
+
+<p align="center">
+  <img width="70%" src="./images/vistaSup.png">
+     
+Figura 3: Vista superior.
+</p>
 
 ## Referencias
 
