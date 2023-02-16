@@ -35,8 +35,7 @@ $$
 \begin{equation}
 s\begin{bmatrix}u\\
                   v\\
-                  Z
-    \end{bmatrix}= \begin{bmatrix}f_x & \gamma & u_0\\
+                  Z\end{bmatrix}= \begin{bmatrix}f_x & \gamma & u_0\\
                                   0 & f_y & v_0\\
                                   0 & 0 & 1 \end{bmatrix}
                   \begin{bmatrix}r_{11} & r_{12} & r_{13} & t_{1}\\
