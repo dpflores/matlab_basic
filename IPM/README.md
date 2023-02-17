@@ -24,6 +24,24 @@ Consideraciones:
 
 A continuación, se muestra el procedimiento detallado para generar la BEV a partir de una imagen frontal RGB. Es importante mencionar que en este taller el objetivo es mostrar el uso del álgebra lineal en aplicaciones de robótica y *computer vision* (CV), por lo que no entraremos en detalle de otros conceptos de CV, solo lo suficiente para comprender la aplicación en cuestión.
 
+### Lectura de una imagen RGB
+
+Se utiliza el comando `imshow()` para visualizar la imagen RGB.
+```matlab
+%% Visualizar imagen rgb
+imageRGB = imread('./images/frontImage.png');
+figure,
+subplot(121),
+imshow(imageRGB);
+title('Imagen RGB');
+```
+
+<p align="center">
+  <img width="50%" src="./images/frontImage.png">
+
+  La imagen de prueba fue recuperada de [[2]]((https://daryl-tan.medium.com/). )
+</p>
+
 ### Selección del plano a proyectar
 En primer lugar se selecciona la región de la carretera que queremos ver en el plano BEV. Generalmente, para ello se debe definir la resolución en píxeles, la distancia absoluta por píxel (escala) y la pose (posición y orientación). No obstante, en este caso solo es necesario definir la posición, la resolución y la escala. 
 

@@ -21,7 +21,7 @@ En *Computer vision*, uno de los pasos más importantes es el de la calibración
 
 Por un lado, la matriz de parámetros intrínsicos ($K$) contiene información de la distancia focal ($f_x$, $f_y$), el centro óptico de la cámara  ($u_0$, $v_0$), y el factor de desviación ($\gamma$, considerado, por simplicidad, como 0). Por otro lado, la matriz de parámetros extrínsecos ($[R|t]$) describen la transformación relativa del sistema de coordenadas del entorno al de la cámara.
 
-*Nota: La presenta aplicación **no** se centra proceso de calibración de una cámara, por lo que se proporcionan directamente la matriz de calibración. Para mayor información de cómo realizar la calibración vea la siguiente [referencia](https://www.mathworks.com/help/vision/ug/)*
+*Nota: La presenta aplicación **no** se centra proceso de calibración de una cámara, por lo que se proporcionan directamente la matriz de calibración. Para mayor información de cómo realizar la calibración vea la siguiente [referencia](https://www.mathworks.com/help/vision/ug/)*.
 
 
 ## Modelo de proyectividad de una cámara
@@ -130,7 +130,7 @@ $$
 
 ## Código
 
-Las imágenes a utilizar fueron obtenidas del software CARLA, un simulador de vehículos utilizado ampliamente para el desarrollo de algoritmos en vehículos autónomos, las cuales fueron recuperadas del siguiente [blog](https://daryl-tan.medium.com/). 
+Las imágenes a utilizar fueron obtenidas del software CARLA, un simulador de vehículos utilizado ampliamente para el desarrollo de algoritmos en vehículos autónomos, las cuales fueron recuperadas de [[1]](https://daryl-tan.medium.com/). 
 
 A continuación, se muestra el paso a paso del código elaborado
 
