@@ -7,7 +7,7 @@ La transformación proyectiva expresa la relación que existe entre dos sistemas
 Una aplicación de este concepto se encuentra en la tecnología desarrollada en los vehículos autónomos, y *Computer Vision* en general. Por ejemplo, cuando la cámara de un vehículo captura su entorno, entonces los objetos tridimensionales (coordenadas del entorno) son mapeados a una imagen bidimensional (coordenadas de la imagen de la cámara), tal y como se muestra en la Figura 1. Como resultado de ello, se pierde la información de la profundidad. Es decir, no se puede conocer a qué distancia se encuentra cada objeto.
 
 <p align="center">
-  <img width="70%" src="./images/cameraModel.png">
+  <img width="50%" src="./images/cameraModel.png">
      
 Figura 1: Modelo de proyección de una cámara [1]. Un punto tridimensional en el entorno es ubicado virtualmente en el plano de la imagen generado por la cámara.
 </p>
@@ -145,6 +145,11 @@ subplot(121),
 imshow(imageRGB);
 title('Imagen RGB');
 ```
+
+<p align="center">
+  <img width="50%" src="./images/imagenRGB.png">
+</p>
+
 ## Lectura de una imagen de profundiad
 
 Generalmente la profundidad se suele representar como una imagen bidimensional, en el que la intensidad define qué tan lejos se encuentra el punto en el entorno. En este caso se utiliza el comando `exrread()` para leer el archivo que contiene la información de profundidad y luego el comando `imshow()` para visualizar la imagen. 
@@ -159,6 +164,10 @@ subplot(122),
 imshow(visualizeDepth);
 title('Información de profundidad');
 ```
+
+<p align="center">
+  <img width="50%" src="./images/depth.png">
+</p>
 
 *Nota: El comando `exrread()` se utilizó con MATLAB 2022b y se encuentra en el toolbox de Image Processing. En caso de obtener un error en dicha línea de código, se recomienda instalar el toolbox mencionado. En caso el problema persista, lo ideal sería actualizar a la versión más reciente de MATALB (2022b). Sin embargo, es posible utilizar MATLAB Online por facilidad.*
 
