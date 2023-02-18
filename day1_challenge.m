@@ -42,9 +42,9 @@ R = [];
 
 % Una vez que hayas realizado la rotación, guarda los nuevos puntos en las
 % siguientes variables
-x2 = 
-y2 = 
-z2 =
+x2 = 0;
+y2 = 0;
+z2 = 0;
 
 %% Graficando la rotación 
 % Ahora solo graficamos y verificamos la correcta rotación de los puntos.
@@ -67,14 +67,29 @@ ylabel('Eje y')
 % dimensiones, utiliza otros ejes para la matriz de rotación y prueba
 % también hacer composición de rotaciones en distintos ejes.
 
-
-% Guarda tus nuevos puntos
-x3 = 
-y3 =
-z3 =
+% Primero graficamos
 
 figure
-plot3(x1, x2, x3, '.')
+plot3(x, y, z, '.')
+xlim([-50 50])
+ylim([-50 50])
+zlim([-50 50])
+xlabel('Eje x')
+ylabel('Eje y')
+zlabel('Eje z')
+grid on
+
+%% Rotación en 3D
+% ahora efectua la rotación en 3D, recuerda que puedes hacer una
+% composicíon de rotaciones
+
+% Guarda tus nuevos puntos
+x3 = 0;
+y3 = 0;
+z3 = 0;
+
+figure
+plot3(x3, y3, z3, '.')
 xlim([-50 50])
 ylim([-50 50])
 zlim([-50 50])
@@ -82,4 +97,5 @@ xlabel('Eje x')
 ylabel('Eje y')
 zlabel('Eje z')
 
+grid on
 
