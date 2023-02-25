@@ -35,14 +35,14 @@ El objetivo de este reto es el de rotar una imagen del logo KON armada con punto
 
 Figura 1:
 
-<img src="figures/kon_rotated.jpg" alt="Logo KON rotado" style="width:80%">
+<img src="./figures/kon_rotated.jpg" alt="Logo KON rotado" style="width:80%">
 
 Figura 2:
 
-<img src="figures/kon_corrected.jpg" alt="Logo KON corregido" style="width:80%">
+<img src="./figures/kon_corrected.jpg" alt="Logo KON corregido" style="width:80%">
 
 También se busca que se exploren rotaciones en otros ejes y pueda trabajarse los puntos en 3D.
 
 Figura 3:
 
-<img src="figures/kon_3d.jpg" alt="Logo KON en 3D" style="width:80%">
+<img src="./figures/kon_3d.jpg" alt="Logo KON en 3D" style="width:80%">
