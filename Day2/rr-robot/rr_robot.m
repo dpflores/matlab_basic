@@ -78,6 +78,7 @@ function [] = draw_rr_robot(l1,l2,q1,q2)
     
     % lines
     plot([pA(1) pB(1)], [pA(2) pB(2)],'b','LineWidth',5)
+    title("RR-Robot")
     hold on
     plot([pB(1) pC(1)],[pB(2) pC(2)],'r','LineWidth',5)
 
