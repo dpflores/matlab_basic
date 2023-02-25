@@ -1,13 +1,13 @@
 %% Visualize rgb
-imageRGB = imread('./imageRGB.png');
+imageRGB = imread('./images/rgb.png');
 figure,
 subplot(121),
 imshow(imageRGB);
 title('Imagen RGB');
 
 %% Visualize depth
-
-[imDepth, alpha] = exrread("./depth.exr");
+load('depthDatamat.mat')
+%[imDepth, alpha] = exrread("./images/depth.exr");
 visualizeDepth = tonemap(imDepth);
 
 subplot(122),
@@ -15,7 +15,6 @@ imshow(visualizeDepth);
 title('Información de profundidad');
 
 %% IPM
-
 height = size(imageRGB, 1);
 width = size(imageRGB, 2);
 
